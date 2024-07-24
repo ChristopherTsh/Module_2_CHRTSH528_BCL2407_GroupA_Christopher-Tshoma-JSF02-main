@@ -37,6 +37,16 @@
 </div>
 
 <style>
+    .container{
+        display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #d1d5db; 
+    border-radius: 0.5rem; 
+    padding: 1rem; 
+    transition: box-shadow 0.2s;
+    }
     .svg{
         width: 16px;
         height: 16px;
