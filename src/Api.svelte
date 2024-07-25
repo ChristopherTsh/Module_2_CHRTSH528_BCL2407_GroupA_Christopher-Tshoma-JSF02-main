@@ -79,6 +79,8 @@
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+    align-content: center;
+    justify-content: center;
   }
   .svg {
     width: 16px;
