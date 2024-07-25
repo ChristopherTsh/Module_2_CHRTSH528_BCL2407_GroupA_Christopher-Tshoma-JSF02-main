@@ -1,242 +1,92 @@
 <script>
   import { onMount } from "svelte";
-  import Modal from './Modal.svelte';
+  import Modal from "./Modal.svelte";
 
-	let showModal = false;
+  let showModal = false;
   let products = [];
+  let selectedProduct = null;
 
-
- onMount(async () => {
-    try{
-    const response = await fetch("https://fakestoreapi.com/products");
-    const data = await response.json();
+  onMount(async () => {
+    try {
+      const response = await fetch("https://fakestoreapi.com/products");
+      const data = await response.json();
       console.log(data);
       products = data;
-    } catch(error) {
-        console.error(error);
-     }
-    });
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
+  function showProductModal(product) {
+    selectedProduct = product;
+    showModal = true;
+  }
 </script>
 
-
-
 <div class="container">
-    
   {#each products as product (product.id)}
-  <div class="product">
-    <img class="images" src={product.image} alt="">
-    <h1>{product.title}</h1>
-    <p>{product.price}</p>
-    <button on:click={() => (showModal = true)}> show modal </button>
-    <svg
-    
-    class="svg"
-    viewBox="0 -0.03 60.062 60.062"
-    xmlns="http://www.w3.org/2000/svg"
-    fill="currentColor"
-  >
-    <path
-      d="M670.68,227.733a3.03,3.03,0,0,0,.884,1.072,3.168,3.168,0,0,0,1.282.578l14.662,2.965a3.067,3.067,0,0,1,2.394,2.284,3,3,0,0,1-1.118,3.084l-11.408,8.654a3.01,3.01,0,0,0-.994,1.3,2.956,2.956,0,0,0-.16,1.618L679.3,266.42a3,3,0,0,1-1.275,3.01,3.166,3.166,0,0,1-3.328.146l-13.18-7.407a3.165,3.165,0,0,0-3.091,0l-13.181,7.407a3.156,3.156,0,0,1-3.327-.146,3,3,0,0,1-1.275-3.01l2.66-14.434a2.957,2.957,0,0,0-.16-1.618,3.005,3.005,0,0,0-.994-1.3l-11.408-8.654a3,3,0,0,1-1.118-3.084,3.07,3.07,0,0,1,2.394-2.284l14.662-2.965a3.167,3.167,0,0,0,1.282-.578,3.038,3.038,0,0,0,.884-1.072l6.527-13.518a3.065,3.065,0,0,1,5.448,0Zm-6.993-15.733Z"
-      transform="translate(-630.002 -213.141)"
-    />
-    <!-- <button>button</button> -->
-  </svg>
-</div>
+    <div class="product">
+      <img class="images" src={product.image} alt="" />
+      <h1>{product.title}</h1>
+      <p>{product.price}</p>
+      <button on:click={() => showProductModal(product)}>Show Modal</button>
+      <svg
+        class="svg"
+        viewBox="0 -0.03 60.062 60.062"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="currentColor"
+      >
+        <path
+          d="M670.68,227.733a3.03,3.03,0,0,0,.884,1.072,3.168,3.168,0,0,0,1.282.578l14.662,2.965a3.067,3.067,0,0,1,2.394,2.284,3,3,0,0,1-1.118,3.084l-11.408,8.654a3.01,3.01,0,0,0-.994,1.3,2.956,2.956,0,0,0-.16,1.618L679.3,266.42a3,3,0,0,1-1.275,3.01,3.166,3.166,0,0,1-3.328.146l-13.18-7.407a3.165,3.165,0,0,0-3.091,0l-13.181,7.407a3.156,3.156,0,0,1-3.327-.146,3,3,0,0,1-1.275-3.01l2.66-14.434a2.957,2.957,0,0,0-.16-1.618,3.005,3.005,0,0,0-.994-1.3l-11.408-8.654a3,3,0,0,1-1.118-3.084,3.07,3.07,0,0,1,2.394-2.284l14.662-2.965a3.167,3.167,0,0,0,1.282-.578,3.038,3.038,0,0,0,.884-1.072l6.527-13.518a3.065,3.065,0,0,1,5.448,0Zm-6.993-15.733Z"
+          transform="translate(-630.002 -213.141)"
+        />
+      </svg>
+    </div>
   {/each}
-
 </div>
 
-
-
-<Modal bind:showModal>
-	<script>
-  import { onMount } from "svelte";
-  import Modal from './Modal.svelte';
-
-	let showModal = false;
-  let products = [];
-
-
- onMount(async () => {
-    try{
-    const response = await fetch("https://fakestoreapi.com/products");
-    const data = await response.json();
-      console.log(data);
-      products = data;
-    } catch(error) {
-        console.error(error);
-     }
-    });
-</script>
-
-
-
-<div class="container">
+<Modal
+ bind:showModal>
+  {#if selectedProduct}
     
-  {#each products as product (product.id)}
-  <div class="product">
-    <img class="images" src={product.image} alt="">
-    <h1>{product.title}</h1>
-    <p>{product.price}</p>
-    <button on:click={() => (showModal = true)}> show modal </button>
-    <svg
-    
-    class="svg"
-    viewBox="0 -0.03 60.062 60.062"
-    xmlns="http://www.w3.org/2000/svg"
-    fill="currentColor"
-  >
-    <path
-      d="M670.68,227.733a3.03,3.03,0,0,0,.884,1.072,3.168,3.168,0,0,0,1.282.578l14.662,2.965a3.067,3.067,0,0,1,2.394,2.284,3,3,0,0,1-1.118,3.084l-11.408,8.654a3.01,3.01,0,0,0-.994,1.3,2.956,2.956,0,0,0-.16,1.618L679.3,266.42a3,3,0,0,1-1.275,3.01,3.166,3.166,0,0,1-3.328.146l-13.18-7.407a3.165,3.165,0,0,0-3.091,0l-13.181,7.407a3.156,3.156,0,0,1-3.327-.146,3,3,0,0,1-1.275-3.01l2.66-14.434a2.957,2.957,0,0,0-.16-1.618,3.005,3.005,0,0,0-.994-1.3l-11.408-8.654a3,3,0,0,1-1.118-3.084,3.07,3.07,0,0,1,2.394-2.284l14.662-2.965a3.167,3.167,0,0,0,1.282-.578,3.038,3.038,0,0,0,.884-1.072l6.527-13.518a3.065,3.065,0,0,1,5.448,0Zm-6.993-15.733Z"
-      transform="translate(-630.002 -213.141)"
-    />
-    <!-- <button>button</button> -->
-  </svg>
-</div>
-  {/each}
-
-</div>
-
-
-
-<Modal bind:showModal>
-	<h2 slot="header">
-		modal
-		<small><em>adjective</em> </small>
-	</h2>
-
-	<ol class="definition-list">
-        {#if products in product (product.id)}
-		
-         
-            {#each products as product(product.id) }
-            <div class="product">
-            <option value="product.id">
-                
-                <img class="images" src={product.image} alt="">
-                <h1>{product.title}</h1>
-                <p>{product.price}</p>
-            </option>
-        </div>
-            {/each}
-            
-   
-           {/if}
-           
-        
-           
-	</ol>
-
-	<a href="https://www.merriam-webster.com/dictionary/modal">merriam-webster.com</a>
+    <div class="product-detail">
+      <img class="images" src={selectedProduct.image} alt="" />
+      <h1>{selectedProduct.title}</h1>
+      <p>{selectedProduct.price}</p>
+    </div>
+  {/if}
+  
 </Modal>
 
-<!-- {#each fruits as fruit, i}
-    <select value={fruit.fruit_id}>
-    {#each options as option}
-      <option value={option.id}>{option.name}</option>
-    {/each}
-    </select>
-{/each} -->
-
 <style>
-    .container{
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-    }
-    .svg{
-        width: 16px;
-        height: 16px;
-    }
-    .images{
-        width: 120px;
-        height: 120px;
-        margin-top: 20px;
-    }
-
-    .product {
-        background-color: #fff;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        padding: 1rem;
-        width: 200px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    .product h1 {
-        font-size: 1.2rem;
-        margin: 0 0 0.5rem;
-    }
-    .product p {
-        font-size: 1rem;
-        color: #333;
-    }
+  .product {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 1rem;
+    width: 200px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .product h1 {
+    font-size: 1.2rem;
+    margin: 0 0 0.5rem;
+  }
+  .product p {
+    font-size: 1rem;
+    color: #333;
+  }
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .svg {
+    width: 16px;
+    height: 16px;
+  }
+  .images {
+    width: 120px;
+    height: 120px;
+    margin-top: 20px;
+  }
 </style>
-
-
-
-
-	<ol class="definition-list">
-        {#each products as product (product.id)}
-		
-            <select value={product.id}>
-            {#each products as product (product.id)}
-            <div class="product">
-            <option value="product.id">
-                
-                <img class="images" src={product.image} alt="">
-                <h1>{product.title}</h1>
-                <p>{product.price}</p>
-            </option>
-        </div>
-           {/each}
-           
-        </select>
-            {/each}
-	</ol>
-
-	<a href="https://www.merriam-webster.com/dictionary/modal">merriam-webster.com</a>
-</Modal>
-
-<!-- {#each fruits as fruit, i}
-    <select value={fruit.fruit_id}>
-    {#each options as option}
-      <option value={option.id}>{option.name}</option>
-    {/each}
-    </select>
-{/each} -->
-
-<style>
-    .container{
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-    }
-    .svg{
-        width: 16px;
-        height: 16px;
-    }
-    .images{
-        width: 120px;
-        height: 120px;
-        margin-top: 20px;
-    }
-
-    .product {
-        background-color: #fff;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        padding: 1rem;
-        width: 200px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    .product h1 {
-        font-size: 1.2rem;
-        margin: 0 0 0.5rem;
-    }
-    .product p {
-        font-size: 1rem;
-        color: #333;
-    }
-</style>
-
-
