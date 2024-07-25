@@ -17,7 +17,9 @@
 </script>
 
 <div class="container">
+    
   {#each products as product (product.id)}
+  <div class="product">
     <img class="images" src={product.image} alt="">
     <h1>{product.title}</h1>
     <p>{product.price}</p>
@@ -33,19 +35,16 @@
       transform="translate(-630.002 -213.141)"
     />
   </svg>
+</div>
   {/each}
+
 </div>
 
 <style>
     .container{
         display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #d1d5db; 
-    border-radius: 0.5rem; 
-    padding: 1rem; 
-    transition: box-shadow 0.2s;
+        flex-wrap: wrap;
+        gap: 1rem;
     }
     .svg{
         width: 16px;
@@ -56,4 +55,23 @@
         height: 120px;
         margin-top: 20px;
     }
+
+    .product {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 1rem;
+        width: 200px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .product h1 {
+        font-size: 1.2rem;
+        margin: 0 0 0.5rem;
+    }
+    .product p {
+        font-size: 1rem;
+        color: #333;
+    }
 </style>
+
+

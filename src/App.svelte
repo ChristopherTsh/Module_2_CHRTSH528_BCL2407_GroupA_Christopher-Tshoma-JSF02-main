@@ -19,6 +19,15 @@
 <main>
     <Api />
 </main>
+
+<style>
+    main {
+        font-family: Arial, sans-serif;
+        padding: 2rem;
+        background-color: #f5f5f5;
+    }
+</style>
+
 <button on:click={() => (showModal = true)}> show modal </button>
 
 <Modal bind:showModal>
