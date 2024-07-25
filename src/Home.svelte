@@ -1,10 +1,9 @@
 <script>
   import { onMount } from "svelte";
-  import Modal from "./Modal.svelte";
-
-  let showModal = false;
+  import {Link } from 'svelte-routing'
+  
   let products = [];
-  let selectedProduct = null;
+
 
   onMount(async () => {
     try {
@@ -17,10 +16,6 @@
     }
   });
 
-  function showProductModal(product) {
-    selectedProduct = product;
-    showModal = true;
-  }
 </script>
 
 <div class="container">
@@ -29,7 +24,7 @@
       <img class="images" src={product.image} alt="" />
       <h1>{product.title}</h1>
       <p>{product.price}</p>
-      <button on:click={() => showProductModal(product)}>Show Modal</button>
+      <Link to={`/product/$`}><button>Show Details</button></Link>
       <svg
         class="svg"
         viewBox="0 -0.03 60.062 60.062"
@@ -45,18 +40,6 @@
   {/each}
 </div>
 
-<Modal
- bind:showModal>
-  {#if selectedProduct}
-    
-    <div class="product-detail">
-      <img class="images" src={selectedProduct.image} alt="" />
-      <h1>{selectedProduct.title}</h1>
-      <p>{selectedProduct.price}</p>
-    </div>
-  {/if}
-  
-</Modal>
 
 <style>
   .product {

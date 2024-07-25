@@ -1,15 +1,14 @@
 <script>
 	import { Router, Route,Link } from 'svelte-routing';
 	import Home from './Home.svelte'
-	
+	import ProductDetails from './ProductDetails.svelte';
 	
 </script>
 
 <Router>
-	<div class="home">
-    <Route path="/" component={Home} />
-</div>
-</Router>
+	<Route path="/" component={Home} />
+	<Route path="/product/:id" component={ProductDetails} />
+  </Router>
 
 <style>
     .home {
