@@ -1,7 +1,7 @@
 <script>
 	import { Router, Route,Link } from 'svelte-routing';
 	import Home from './+Home.svelte'
-	import ProductDetails from './+ProductDetails.svelte';
+	import ProductDetails from './ProductDetails.svelte';
 	
 </script>
 
