@@ -1,10 +1,12 @@
 <script>
-  import { onMount} from "svelte";
-  import { Link } from 'svelte-routing';
-//   import { page } from '$app/stores';
-// let slug = $page.params.slug;
+  import { onMount } from "svelte";
+  import { Link } from "svelte-routing";
+  //   import { page } from '$app/stores';
+  // let slug = $page.params.slug;
 
   export let id;
+
+  console.log("Product ID:", id);
 
   let product = null;
   let loading = true;
@@ -12,17 +14,26 @@
   onMount(async () => {
     try {
       const response = await fetch(`https://fakestoreapi.com/products/${id}`);
-      const data = await response.json();
-      product = data;
-    } catch (error) {
-      console.error(error);
+      if (!response.ok) {
+        throw new Error(
+          `Failed to fetch product with ID ${id}: ${response.statusText}`
+        );
+      }
+      product = await response.json();
+      console.log("Product Data:", product); // Check if product data is fetched
+    } catch (err) {
+      console.error("Error fetching product data:", err);
+      error = err.message;
+    } finally {
+      loading = false;
     }
+    F;
   });
 </script>
 
 {#if loading}
   <p>Loading...</p>
-{:else}
+{:else if error}
   {#if product}
     <div class="product-details">
       <img class="images" src={product.image} alt={product.title} />
@@ -37,7 +48,7 @@
 {/if}
 
 <style>
-   .product-details {
+  .product-details {
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 5px;
