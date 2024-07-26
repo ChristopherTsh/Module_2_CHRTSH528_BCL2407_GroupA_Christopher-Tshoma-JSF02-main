@@ -3,7 +3,12 @@
   import {Link } from 'svelte-routing'
   
   let products = [];
+  let filteredProducts = [];
   let loading = true;
+  let sortOption = '';
+  let categories = [];
+  let selectedCategory = '';
+  let searchQuery = '';
 
   onMount(async () => {
     try {
@@ -11,6 +16,10 @@
       const data = await response.json();
       console.log(data);
       products = data;
+      filteredProducts = data;
+
+      const categoriesResponse = await fetch("https://fakestoreapi.com/products/categories");
+      categories = await categoriesResponse.json(); 
     } catch (error) {
       console.error(error);
     } finally {
@@ -18,7 +27,63 @@
     }
   });
 
+
+  function handleSort() {
+    if (sortOption === 'lowToHigh') {
+      filteredProducts = filteredProducts.slice().sort((a, b) => a.price - b.price);
+    } else if (sortOption === 'highToLow') {
+      filteredProducts = filteredProducts.slice().sort((a, b) => b.price - a.price);
+    }
+  }
+
+  function handleCategoryFilter() {
+    if (selectedCategory) {
+      filteredProducts = products.filter(product => product.category === selectedCategory);
+    } else {
+      filteredProducts = products;
+    }
+    handleSort();
+  }
+
+  function handleSearch() {
+    if (searchQuery) {
+      filteredProducts = products.filter(product => 
+        product.category === selectedCategory && 
+        product.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    } else if (selectedCategory) {
+      handleCategoryFilter();
+    } else {
+      filteredProducts = products;
+    }
+    handleSort();
+  }
+
+  $: handleSearch();
+
 </script>
+
+<div class="controls">
+  <select bind:value={sortOption} on:change={handleSort}>
+    <option value="">Sort by</option>
+    <option value="lowToHigh">Price: Low to High</option>
+    <option value="highToLow">Price: High to Low</option>
+  </select>
+
+  <select bind:value={selectedCategory} on:change={handleCategoryFilter}>
+    <option value="">All Categories</option>
+    {#each categories as category}
+      <option value={category}>{category}</option>
+    {/each}
+  </select>
+
+  <input 
+    type="text" 
+    placeholder="Search by title" 
+    bind:value={searchQuery} 
+    on:input={handleSearch} 
+  />
+</div>
 
 <div class="container">
   {#if loading}
@@ -49,6 +114,13 @@
 
 
 <style>
+
+.controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    justify-content: center;
+  }
   .product {
     background-color: #fff;
     border: 1px solid #ddd;
