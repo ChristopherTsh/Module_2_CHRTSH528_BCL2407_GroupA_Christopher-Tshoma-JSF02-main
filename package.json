@@ -1,7 +1,7 @@
 {
   "name": "module-2-chrtsh528-bcl2407-groupa-christopher-tshoma-jsf02-main",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",

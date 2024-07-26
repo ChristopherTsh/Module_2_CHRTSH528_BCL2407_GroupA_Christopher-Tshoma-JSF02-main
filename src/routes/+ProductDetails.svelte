@@ -1,13 +1,13 @@
 <script>
-  import { onMount } from "svelte";
-  // import { params } from 'svelte-routing';
+    import { onMount } from "svelte";
+  import { getContext } from 'svelte';
 
   let product = null;
-  // let productId = params.id;
+  const { id } = getContext('routable').params;
 
   onMount(async () => {
     try {
-      const response = await fetch(`https://fakestoreapi.com/products/`);
+      const response = await fetch(`https://fakestoreapi.com/products/${id}`);
       const data = await response.json();
       product = data;
     } catch (error) {
