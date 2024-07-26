@@ -10,6 +10,7 @@
 
   let product = null;
   let loading = true;
+  let error = null;
 
   onMount(async () => {
     try {
@@ -27,14 +28,15 @@
     } finally {
       loading = false;
     }
-    F;
+    ;
   });
 </script>
 
 {#if loading}
   <p>Loading...</p>
 {:else if error}
-  {#if product}
+<p>Error: {error}</p>
+{:else if product}
     <div class="product-details">
       <img class="images" src={product.image} alt={product.title} />
       <h1>{product.title}</h1>
@@ -45,7 +47,7 @@
   {:else}
     <p>Product not found.</p>
   {/if}
-{/if}
+
 
 <style>
   .product-details {
