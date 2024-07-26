@@ -3,7 +3,7 @@
   import {Link } from 'svelte-routing'
   
   let products = [];
-
+  let loading = true;
 
   onMount(async () => {
     try {
@@ -13,18 +13,24 @@
       products = data;
     } catch (error) {
       console.error(error);
+    } finally {
+      loading = false;
     }
   });
 
 </script>
 
 <div class="container">
+  {#if loading}
+    <p>Loading...</p>
+  {:else}
+
   {#each products as product (product.id)}
     <div class="product">
       <img class="images" src={product.image} alt="" />
       <h1>{product.title}</h1>
       <p>{product.price}</p>
-      <Link to={`/product/$`}><button>Show Details</button></Link>
+      <Link to={`/product/${product.id}`}><button>Show Details</button></Link>
       <svg
         class="svg"
         viewBox="0 -0.03 60.062 60.062"
@@ -38,6 +44,7 @@
       </svg>
     </div>
   {/each}
+  {/if}
 </div>
 
 
