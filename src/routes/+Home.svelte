@@ -90,7 +90,7 @@
     <p>Loading...</p>
   {:else}
 
-  {#each products as product (product.id)}
+  {#each filteredProducts as product (product.id)}
     <div class="product">
       <img class="images" src={product.image} alt="" />
       <h1>{product.title}</h1>
