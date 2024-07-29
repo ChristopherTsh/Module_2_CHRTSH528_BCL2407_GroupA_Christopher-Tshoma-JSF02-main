@@ -84,11 +84,20 @@
     align-content: center;
     justify-content: center;
   }
-  .svg {
+  .svgClass {
+    display: flex;
     margin-left: 10px;
-    width: 16px;
-    height: 16px;
+    width: 90px;
+    height: 22px;
   }
+
+  .rating svg.filled {
+    fill: var(--font-color);
+  }
+
+  .rating svg.empty {
+    fill: #e0e0e0;
+  } 
   .images {
     width: 120px;
     height: 120px;
