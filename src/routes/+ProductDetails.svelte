@@ -1,8 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import { Link } from "svelte-routing";
-  //   import { page } from '$app/stores';
-  // let slug = $page.params.slug;
+  
 
   export let id;
 
@@ -50,27 +49,5 @@
 
 
 <style>
-  .product-details {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 1rem;
-    max-width: 600px;
-    margin: auto;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  .product-details h1 {
-    font-size: 1.5rem;
-    margin: 0 0 1rem;
-  }
-  .product-details p {
-    font-size: 1rem;
-    color: #333;
-    margin-bottom: 0.5rem;
-  }
-  .images {
-    width: 300px;
-    height: 300px;
-    margin-bottom: 1rem;
-  }
+@import '../Style.css';
 </style>

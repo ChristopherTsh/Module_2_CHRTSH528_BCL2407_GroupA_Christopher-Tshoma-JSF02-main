@@ -10,7 +10,10 @@
 <Navbar />
 
 <Router>
-	<Route path="/" component={Home} />
+  <div class="home">
+    <Route  path="/" component={Home} />
+  </div>
+	
 	<Route path="/product/:id" component={ProductDetails} />
   </Router>
 
@@ -18,7 +21,7 @@
     .home {
         font-family: Arial, sans-serif;
         padding: 2rem;
-        background-color: #f5f5f5;
+        background-color: gray;
     }
 </style>
 

@@ -94,8 +94,7 @@
     <div class="product">
       <img class="images" src={product.image} alt="" />
       <h1>{product.title}</h1>
-      <p>{product.price}</p>
-      <Link to={`/product/${product.id}`}><button>Show Details</button></Link>
+      <p>${product.price}</p>
       <svg
         class="svg"
         viewBox="0 -0.03 60.062 60.062"
@@ -107,6 +106,8 @@
           transform="translate(-630.002 -213.141)"
         />
       </svg>
+      <Link to={`/product/${product.id}`}><button class="DetailsBtn">Show Details</button></Link>
+      
     </div>
   {/each}
   {/if}
@@ -114,43 +115,5 @@
 
 
 <style>
-
-.controls {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
-    justify-content: center;
-  }
-  .product {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 1rem;
-    width: 200px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  .product h1 {
-    font-size: 1.2rem;
-    margin: 0 0 0.5rem;
-  }
-  .product p {
-    font-size: 1rem;
-    color: #333;
-  }
-  .container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    align-content: center;
-    justify-content: center;
-  }
-  .svg {
-    width: 16px;
-    height: 16px;
-  }
-  .images {
-    width: 120px;
-    height: 120px;
-    margin-top: 20px;
-  }
+@import '../Style.css';
 </style>
