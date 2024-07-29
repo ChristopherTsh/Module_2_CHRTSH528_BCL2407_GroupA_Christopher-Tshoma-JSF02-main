@@ -9,7 +9,7 @@
   let categories = [];
   let selectedCategory = '';
   let searchQuery = '';
-  let showSortOptions = false;
+ 
 
   onMount(async () => {
     try {
@@ -28,13 +28,11 @@
     }
   });
 
-  function toggleSortOptions() {
-    showSortOptions = !showSortOptions;
-  }
+ 
 
 
-  function handleSort(option) {
-    if (option === 'lowToHigh') {
+  function handleSort() {
+    if (sortOption === 'lowToHigh') {
       filteredProducts = filteredProducts.slice().sort((a, b) => a.price - b.price);
     } else if (sortOption === 'highToLow') {
       filteredProducts = filteredProducts.slice().sort((a, b) => b.price - a.price);
@@ -72,32 +70,18 @@
 </script>
 
 <div class="controls">
-  <div class="custom-select-wrapper">
-    <div class="custom-select">
-  <select bind:value={sortOption} on:change="{() => handleSort(sortOption)}">
+  <select bind:value={sortOption} on:change={handleSort}>
     <option value="">Sort by</option>
     <option value="lowToHigh">Price: Low to High</option>
     <option value="highToLow">Price: High to Low</option>
   </select>
-  <div class="custom-select-trigger">
-    {sortOption ? sortOption : 'Sort by'}
-  </div>
-</div>
-</div>
 
-  <div class="custom-select-wrapper">
-    <div class="custom-select">
   <select bind:value={selectedCategory} on:change={handleCategoryFilter}>
     <option value="">All Categories</option>
     {#each categories as category}
       <option value={category}>{category}</option>
     {/each}
   </select>
-  <div class="custom-select-trigger">
-    {selectedCategory ? selectedCategory : 'All Categories'}
-  </div>
-</div>
-</div>
 
   <div class="search-bar">
   <input 
