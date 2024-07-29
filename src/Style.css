@@ -305,11 +305,11 @@
 }
 
 .search-button svg {
-  fill: #676ed1;
+  fill: var(--font-color);
 }
 
 .search-button svg:hover {
-  fill: #525ed8;
+  fill: var(--background-color);
 }
 
   @media (max-width: 768px) {

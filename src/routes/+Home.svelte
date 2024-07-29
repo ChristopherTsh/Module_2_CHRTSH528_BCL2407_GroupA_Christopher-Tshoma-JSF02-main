@@ -52,13 +52,10 @@
   function handleSearch() {
     if (searchQuery) {
       filteredProducts = products.filter(product => 
-        product.category === selectedCategory && 
         product.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
-    } else if (selectedCategory) {
-      handleCategoryFilter();
     } else {
-      filteredProducts = products;
+      filteredProducts = selectedCategory ? products.filter(product => product.category === selectedCategory) : products;
     }
     handleSort();
   }
@@ -100,7 +97,6 @@
     type="text" 
     placeholder="Search by title" 
     bind:value={searchQuery} 
-    on:input={handleSearch} 
   />
   <button class="search-button" on:click={handleSearch}>
     <svg width="16" height="16" viewBox="0 0 24 24"><path d="M10 2a8 8 0 1 1-5.293 14.706l-4.358 4.358-1.414-1.414 4.358-4.358A8 8 0 0 1 10 2zm0 2a6 6 0 1 0 0 12A6 6 0 0 0 10 4z"/></svg>
