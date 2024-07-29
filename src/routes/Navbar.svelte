@@ -12,7 +12,7 @@
     <div class="logo">
       <a href="/">Home</a>
     </div>
-    <div class="menu">
+    <div class="menu" >
       <ul class={isOpen ? 'open' : ''}>
         <li><a href="/wishlist">Wishlist</a></li>
         <li><a href="/cart">Cart</a></li>

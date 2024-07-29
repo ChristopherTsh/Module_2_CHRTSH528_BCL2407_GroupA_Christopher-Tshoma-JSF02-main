@@ -34,10 +34,7 @@
 
 
   function handleSort(option) {
-    sortOption = option;
-    showSortOptions = false;
-    console.log('Sort option selected:', sortOption);
-    if (sortOption === 'lowToHigh') {
+    if (option === 'lowToHigh') {
       filteredProducts = filteredProducts.slice().sort((a, b) => a.price - b.price);
     } else if (sortOption === 'highToLow') {
       filteredProducts = filteredProducts.slice().sort((a, b) => b.price - a.price);
@@ -77,7 +74,7 @@
 <div class="controls">
   <div class="custom-select-wrapper">
     <div class="custom-select">
-  <select bind:value={sortOption} on:change={handleSort}>
+  <select bind:value={sortOption} on:change="{() => handleSort(sortOption)}">
     <option value="">Sort by</option>
     <option value="lowToHigh">Price: Low to High</option>
     <option value="highToLow">Price: High to Low</option>
@@ -124,7 +121,8 @@
       <img class="images" src={product.image} alt="" />
       <h1>{product.title}</h1>
       <p>${product.price}</p>
-      <div class="svgClass">
+      <p>{product.category}</p>
+      <div class="svgClass rating">
         {#each Array(5) as _, i}
           <svg class={i < Math.round(product.rating.rate) ? 'filled' : 'empty'} viewBox="0 0 24 24">
             <path d="M12 .587l3.668 7.571 8.332 1.151-6.063 5.852 1.428 8.287L12 18.897l-7.365 3.851 1.428-8.287-6.063-5.852 8.332-1.151z"/>
