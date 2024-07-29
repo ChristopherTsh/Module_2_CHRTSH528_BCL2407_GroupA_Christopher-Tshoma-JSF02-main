@@ -106,7 +106,7 @@
           transform="translate(-630.002 -213.141)"
         />
       </svg>
-      <Link to={`/product/${product.id}`}><button class="DetailsBtn">Show Details</button></Link>
+      <Link to={`/product/${product.id}`}><button>Show Details</button></Link>
       
     </div>
   {/each}

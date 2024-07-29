@@ -1,6 +1,17 @@
-/* :root{
-  --font-size: ;  
-} */
+:root{
+  --size: ;  
+
+  /* color */
+  --font-color:#CC8B65;
+  --achromatic-color: #ffffff ;
+  --background-color: #013328 ;
+}
+
+.home {
+    font-family: Arial, sans-serif;
+    padding: 2rem;
+    background-color: var(--background-color);
+}
 
 .controls {
     display: flex;
@@ -9,7 +20,7 @@
     justify-content: center;
   }
   .product {
-    background-color: #fff;
+    background-color:var(--achromatic-color);
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 1rem;
@@ -17,12 +28,46 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
-  .DetailsBtn{
-    background-color: #4CAF50;
-    color: #fff;
-    display: flex;
-    padding: 5px;
+  button {
+    border-radius: 4px;
+    background-color: var(--font-color);
     border: none;
+    color: var(--achromatic-color);
+    text-align: center;
+    font-size: 19px;
+    padding: 5px;
+    width: 127px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+    box-shadow: 0 10px 20px -8px rgba(0, 0, 0,.7);
+  }
+  
+  button{
+    cursor: pointer;
+    display: ruby-text;
+    position: relative;
+    transition: 0.5s;
+
+  }
+  
+  button:after {
+    content: '»';
+    position: absolute;
+    opacity: 0;  
+    top: 14px;
+    right: -20px;
+    transition: 0.5s;
+  }
+  
+  button:hover{
+    padding-right: 24px;
+    padding-left:8px;
+  }
+  
+  button:hover:after {
+    opacity: 1;
+    right: 10px;
   }
    .product h1 {
     font-size: 1.2rem;
@@ -50,7 +95,7 @@
   }
 
   .product-details {
-    background-color: #fff;
+    background-color: var(--achromatic-color);
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 1rem;
@@ -68,23 +113,18 @@
     color: #333;
     margin-bottom: 0.5rem;
   }
-  .images {
-    width: 300px;
-    height: 300px;
-    margin-bottom: 1rem;
-  }
-
+  
   .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
     background: #333;
-    color: white;
+    color: var(--achromatic-color);
   }
 
   .logo a {
-    color: white;
+    color: var(--achromatic-color);
     text-decoration: none;
     font-size: 1.5rem;
   }
@@ -102,7 +142,7 @@
   }
 
   .menu li a {
-    color: white;
+    color: var(--achromatic-color);
     text-decoration: none;
     padding: 0.5rem 1rem;
     transition: background 0.3s;
@@ -116,7 +156,7 @@
     display: none;
     background: none;
     border: none;
-    color: white;
+    color: var(--achromatic-color);
     font-size: 2rem;
   }
 

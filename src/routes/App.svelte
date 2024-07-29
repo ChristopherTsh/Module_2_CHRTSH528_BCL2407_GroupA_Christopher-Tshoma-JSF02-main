@@ -18,11 +18,7 @@
   </Router>
 
 <style>
-    .home {
-        font-family: Arial, sans-serif;
-        padding: 2rem;
-        background-color: gray;
-    }
+    @import '../Style.css'
 </style>
 
 

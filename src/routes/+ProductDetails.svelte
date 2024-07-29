@@ -41,7 +41,7 @@
       <h1>{product.title}</h1>
       <p>{product.description}</p>
       <p>{product.price}</p>
-      <Link to="/"><button>Back to Products</button></Link>
+      <Link to="/"><button><span>to Products</span></button></Link>
     </div>
   {:else}
     <p>Product not found.</p>
