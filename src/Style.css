@@ -190,7 +190,7 @@
   font-weight: 300;
   color: #fff;
   line-height: 40px;
-  background: #676ed1;
+  background: var(--font-color);
   border-radius: 4px;
   cursor: pointer;
 }

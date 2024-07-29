@@ -36,7 +36,11 @@
     }
   }
 
+  
+  
+
   function handleCategoryFilter() {
+
     if (selectedCategory) {
       filteredProducts = products.filter(product => product.category === selectedCategory);
     } else {
