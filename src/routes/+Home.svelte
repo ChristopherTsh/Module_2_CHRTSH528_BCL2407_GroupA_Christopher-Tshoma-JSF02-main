@@ -64,25 +64,44 @@
 </script>
 
 <div class="controls">
+  <div class="custom-select-wrapper">
+    <div class="custom-select">
   <select bind:value={sortOption} on:change={handleSort}>
     <option value="">Sort by</option>
     <option value="lowToHigh">Price: Low to High</option>
     <option value="highToLow">Price: High to Low</option>
   </select>
+  <div class="custom-select-trigger">
+    {sortOption ? sortOption : 'Sort by'}
+  </div>
+</div>
+</div>
 
+  <div class="custom-select-wrapper">
+    <div class="custom-select">
   <select bind:value={selectedCategory} on:change={handleCategoryFilter}>
     <option value="">All Categories</option>
     {#each categories as category}
       <option value={category}>{category}</option>
     {/each}
   </select>
+  <div class="custom-select-trigger">
+    {selectedCategory ? selectedCategory : 'All Categories'}
+  </div>
+</div>
+</div>
 
+  <div class="search-bar">
   <input 
     type="text" 
     placeholder="Search by title" 
     bind:value={searchQuery} 
     on:input={handleSearch} 
   />
+  <button class="search-button" on:click={handleSearch}>
+    <svg width="16" height="16" viewBox="0 0 24 24"><path d="M10 2a8 8 0 1 1-5.293 14.706l-4.358 4.358-1.414-1.414 4.358-4.358A8 8 0 0 1 10 2zm0 2a6 6 0 1 0 0 12A6 6 0 0 0 10 4z"/></svg>
+  </button>
+</div>
 </div>
 
 <div class="container">
