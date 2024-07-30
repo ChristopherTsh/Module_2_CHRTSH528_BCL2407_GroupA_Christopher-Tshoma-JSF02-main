@@ -308,6 +308,63 @@ input {
     width: 100%;
 }
 
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Adjust to fit the container */
+}
+
+.loader svg {
+  width: 50px;
+  height: 50px;
+  animation: rotate 2s linear infinite;
+}
+
+.ring {
+  stroke: var(--font-color);
+  stroke-width: 4;
+  fill: none;
+}
+
+.ball {
+  fill: var(--font-color);
+  stroke-width: 0;
+  animation: move 2s linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes move {
+  0% {
+    cx: 25;
+    cy: 5;
+  }
+  25% {
+    cx: 45;
+    cy: 25;
+  }
+  50% {
+    cx: 25;
+    cy: 45;
+  }
+  75% {
+    cx: 5;
+    cy: 25;
+  }
+  100% {
+    cx: 25;
+    cy: 5;
+  }
+}
+
 
 
 
