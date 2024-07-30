@@ -12,13 +12,14 @@
   } from "../store";
   import { get } from "svelte/store";
 
-  let products = get(productsStore);
-  let filteredProducts = get(filteredProductsStore);
-  let loading = get(loadingStore);
-  let sortOption = get(sortOptionStore);
-  let categories = get(categoriesStore);
-  let selectedCategory = get(selectedCategoryStore);
-  let searchQuery = get(searchQueryStore);
+  // Using $ syntax to auto-subscribe to the stores
+  let products = $productsStore;
+  let filteredProducts = $filteredProductsStore;
+  let loading = $loadingStore;
+  let sortOption = $sortOptionStore;
+  let categories = $categoriesStore;
+  let selectedCategory = $selectedCategoryStore;
+  let searchQuery = $searchQueryStore;
 
   onMount(async () => {
 
@@ -28,85 +29,80 @@
     try {
       const response = await fetch("https://fakestoreapi.com/products");
       const data = await response.json();
-      console.log(data);
-      products = data;
+      console.log(data);//console to check data 
       productsStore.set(data);
-      filteredProducts = data;
-      filteredProductsStore.set(data);
+      filteredProductsStore.set(await fetchCategories());
 
-      const categoriesResponse = await fetch(
-        "https://fakestoreapi.com/products/categories"
-      );
-      const categoriesData = await categoriesResponse.json();
-       categories = categoriesData;
-        categoriesStore.set(categoriesData);
     } catch (error) {
       console.error(error);
     } finally {
-      loading = false;
       loadingStore.set(false);
     }
-  } else {
+    } else {
       console.log('Products already loaded');
-      filteredProducts = products;
-      filteredProductsStore.set(filteredProducts);
+      filteredProductsStore.set(products);
     }
+    applyFiltersAndSort(); // Apply filters and sort on initial load
   });
+  async function fetchCategories() {
+    try {
+      const categoriesResponse = await fetch(
+        "https://fakestoreapi.com/products/categories"
+      );
+      return await categoriesResponse.json();
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  }
 
   function handleSort() {
     sortOptionStore.set(sortOption);
-    if (sortOption === "lowToHigh") {
-      filteredProducts = filteredProducts
-        .slice()
-        .sort((a, b) => a.price - b.price);
-    } else if (sortOption === "highToLow") {
-      filteredProducts = filteredProducts
-        .slice()
-        .sort((a, b) => b.price - a.price);
-    }
-    filteredProductsStore.set(filteredProducts);
+    applyFiltersAndSort();
   }
 
   function handleCategoryFilter() {
     selectedCategoryStore.set(selectedCategory);
     console.log("Category selected:", selectedCategory);
-    if (selectedCategory) {
-      filteredProducts = products.filter(
-        (product) => product.category === selectedCategory
-      );
-    } else {
-      filteredProducts = products;
-    }
-    handleSort();
-    filteredProductsStore.set(filteredProducts);
+    applyFiltersAndSort();
   }
 
   function handleSearch() {
     searchQueryStore.set(searchQuery);
     console.log("Search query:", searchQuery);
-    if (searchQuery) {
-      filteredProducts = products.filter((product) =>
-        product.title.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    } else {
-      filteredProducts = selectedCategory
-        ? products.filter((product) => product.category === selectedCategory)
-        : products;
-    }
-    handleSort();
-    filteredProductsStore.set(filteredProducts);
+    applyFiltersAndSort();
   }
 
-  // Removed auto search trigger when typing
-  $: handleSearch();
+  function applyFiltersAndSort() {
+    let filtered = products;
+
+    if (selectedCategory) {
+      filtered = filtered.filter(product => product.category === selectedCategory);
+    }
+
+    if (searchQuery) {
+      filtered = filtered.filter(product =>
+        product.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    if (sortOption === "lowToHigh") {
+      filtered = filtered.sort((a, b) => a.price - b.price);
+    } else if (sortOption === "highToLow") {
+      filtered = filtered.sort((a, b) => b.price - a.price);
+    }
+
+    filteredProductsStore.set(filtered);
+  }
+
   // Update bindings
-  $: products = get(productsStore);
-  $: filteredProducts = get(filteredProductsStore);
-  $: loading = get(loadingStore);
-  $: sortOption = get(sortOptionStore);
-  $: categories = get(categoriesStore);
-  $: selectedCategory = get(selectedCategoryStore);
-  $: searchQuery = get(searchQueryStore);
+  $: products = $productsStore;
+  $: filteredProducts = $filteredProductsStore;
+  $: loading = $loadingStore;
+  $: sortOption = $sortOptionStore;
+  $: categories = $categoriesStore;
+  $: selectedCategory = $selectedCategoryStore;
+  $: searchQuery = $searchQueryStore;
 
 </script>
 
