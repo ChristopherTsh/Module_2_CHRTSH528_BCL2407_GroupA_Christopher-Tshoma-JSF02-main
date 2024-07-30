@@ -23,5 +23,5 @@
 </main>
 
 <style>
-    /* Add your styles here */
+    @import '../Style.css';
 </style>

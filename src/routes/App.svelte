@@ -4,6 +4,7 @@
 	import ProductDetails from './+ProductDetails.svelte';
   import Navbar from './Navbar.svelte';
   import Login from './Login.svelte';
+  import Cart from './Cart.svelte';
 	
 </script>
 
@@ -17,10 +18,11 @@
 	
 	<Route path="/product/:id" component={ProductDetails} />
   <Route path="login" component={Login} />
+  <Route path="cart" component={Cart} />
   </Router>
 
 <style>
-    @import '../Style.css'
+    @import '../Style.css';
 </style>
 
 
