@@ -36,7 +36,7 @@
 {:else if error}
 <p>Error: {error}</p>
 {:else if product}
-    <div class="product-details">
+    <div class="product-details home">
       <img class="images" src={product.image} alt={product.title} />
       <h1>{product.title}</h1>
       <p>{product.description}</p>

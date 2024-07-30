@@ -7,6 +7,10 @@
   --background-color: #013328 ;
 }
 
+body{
+  background-color: var(--background-color);
+}
+
 .home {
     font-family: Arial, sans-serif;
     padding: 2rem;
@@ -259,6 +263,32 @@
   .search-button svg:hover {
     fill: var(--background-color);
   }
+  /* LogIn */
+
+  .login {
+    font-family: Arial, sans-serif;
+    padding: 2rem;
+    background-color: var(--background-color);
+    color: var(--achromatic-color);
+}
+
+
+label {
+    font-size: var(--font-size-base);
+    display: block;
+    margin: 0.5rem 0;
+}
+
+input {
+    font-size: var(--font-size-base);
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    width: 100%;
+}
+
+
 
   @media (max-width: 768px) {
     .menu ul {
