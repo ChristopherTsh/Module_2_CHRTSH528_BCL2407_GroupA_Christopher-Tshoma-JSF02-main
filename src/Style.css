@@ -266,10 +266,22 @@ body{
   /* LogIn */
 
   .login {
-    font-family: Arial, sans-serif;
-    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     background-color: var(--background-color);
     color: var(--achromatic-color);
+}
+
+.login-container {
+  margin: auto;
+    width: 300px;
+    padding: 2rem;
+    background-color: var(--achromatic-color);
+    border-radius: 10px;
+    box-shadow: 0 2px 4px var(--shadow-color);
+    text-align: center;
 }
 
 
@@ -287,6 +299,8 @@ input {
     border-radius: 4px;
     width: 100%;
 }
+
+
 
 
 

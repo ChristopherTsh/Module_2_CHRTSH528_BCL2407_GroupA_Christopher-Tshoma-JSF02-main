@@ -10,6 +10,7 @@
 </script>
 
 <main>
+    <div class="login-container">
     <h1>Login</h1>
     <form on:submit|preventDefault={handleSubmit}>
         <label for="username">Username:</label>
@@ -20,6 +21,11 @@
 
         <button type="submit">Login</button>
     </form>
+    <div class="links">
+        <a href="/register">Register</a>
+        <a href="/forgot-password">Forgot Password?</a>
+    </div>
+</div>
 </main>
 
 <style>
