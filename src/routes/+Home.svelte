@@ -1,3 +1,4 @@
+<!-- Home -->
 <script>
   import { onMount } from "svelte";
   import { Link } from "svelte-routing";
@@ -22,26 +23,24 @@
   let searchQuery = $searchQueryStore;
 
   onMount(async () => {
-
     if (products.length === 0) {
-      console.log('Fetching products from API'); 
+      console.log("Fetching products from API");
 
-    try {
-      const response = await fetch("https://fakestoreapi.com/products");
-      const data = await response.json();
-      productsStore.set(data);
-      console.log(data); // console to check data 
-      productsStore.set(data);
+      try {
+        const response = await fetch("https://fakestoreapi.com/products");
+        const data = await response.json();
+        productsStore.set(data);
+        console.log(data); // console to check data
+        productsStore.set(data);
 
-      await fetchCategories();
-
-    } catch (error) {
-      console.error(error);
-    } finally {
-      loadingStore.set(false);
-    }
+        await fetchCategories();
+      } catch (error) {
+        console.error(error);
+      } finally {
+        loadingStore.set(false);
+      }
     } else {
-      console.log('Products already loaded');
+      console.log("Products already loaded");
       filteredProductsStore.set(products);
     }
     applyFiltersAndSort(); // Apply filters and sort on initial load
@@ -58,15 +57,15 @@
         "https://fakestoreapi.com/products/categories"
       );
       const data = await categoriesResponse.json();
-    console.log("Fetched categories:", data); // Debug log
-    categoriesStore.set(data);
+      console.log("Fetched categories:", data); // Debug log
+      categoriesStore.set(data);
     } catch (error) {
       console.error(error);
       return [];
     }
   }
 
-   /**
+  /**
    * Handles the sorting of products based on the selected sort option.
    */
 
@@ -103,11 +102,13 @@
     let filtered = products;
 
     if (selectedCategory) {
-      filtered = filtered.filter(product => product.category === selectedCategory);
+      filtered = filtered.filter(
+        (product) => product.category === selectedCategory
+      );
     }
 
     if (searchQuery) {
-      filtered = filtered.filter(product =>
+      filtered = filtered.filter((product) =>
         product.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
@@ -121,10 +122,6 @@
     filteredProductsStore.set(filtered);
   }
 
-  
-
-  
-
   // Update bindings
   $: products = $productsStore;
   $: filteredProducts = $filteredProductsStore;
@@ -133,7 +130,6 @@
   $: categories = $categoriesStore;
   $: selectedCategory = $selectedCategoryStore;
   $: searchQuery = $searchQueryStore;
-
 </script>
 
 <div class="controls">

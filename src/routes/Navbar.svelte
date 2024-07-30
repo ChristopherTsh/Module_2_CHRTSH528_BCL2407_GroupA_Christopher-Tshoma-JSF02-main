@@ -1,8 +1,23 @@
 <!-- Navbar.svelte -->
 <script>
+  /**
+   * @module Navbar
+   *
+   * This Svelte component renders a navigation bar with links to different pages of the application.
+   * It includes a hamburger menu for toggling the visibility of the navigation links.
+   */
+
   import { onMount } from "svelte";
+
+  /**
+   * @property {boolean} isOpen - Indicates whether the mobile menu is open or closed.
+   * @default false
+   */
   let isOpen = false;
 
+  /**
+   * Toggles the visibility of the mobile menu.
+   */
   function toggleMenu() {
     isOpen = !isOpen;
   }
@@ -75,6 +90,7 @@
         >
       </li>
     </ul>
+    <!-- Hamburger menu button for mobile view -->
     <button class="hamburger" on:click={toggleMenu}> &#9776; </button>
   </div>
 </nav>
