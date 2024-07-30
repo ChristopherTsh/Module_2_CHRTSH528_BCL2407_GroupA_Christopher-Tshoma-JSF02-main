@@ -29,7 +29,6 @@
     try {
       const response = await fetch("https://fakestoreapi.com/products");
       const data = await response.json();
-      console.log(data);//console to check data 
       productsStore.set(data);
       filteredProductsStore.set(await fetchCategories());
 
@@ -44,6 +43,12 @@
     }
     applyFiltersAndSort(); // Apply filters and sort on initial load
   });
+
+  /**
+   * Fetches product categories from the API.
+   * @returns {Promise<Array<string>>} - A promise that resolves to an array of category names.
+   */
+
   async function fetchCategories() {
     try {
       const categoriesResponse = await fetch(
@@ -56,10 +61,18 @@
     }
   }
 
+   /**
+   * Handles the sorting of products based on the selected sort option.
+   */
+
   function handleSort() {
     sortOptionStore.set(sortOption);
     applyFiltersAndSort();
   }
+
+  /**
+   * Handles the filtering of products based on the selected category.
+   */
 
   function handleCategoryFilter() {
     selectedCategoryStore.set(selectedCategory);
@@ -67,11 +80,19 @@
     applyFiltersAndSort();
   }
 
+  /**
+   * Handles the filtering of products based on the search query.
+   */
+
   function handleSearch() {
     searchQueryStore.set(searchQuery);
     console.log("Search query:", searchQuery);
     applyFiltersAndSort();
   }
+
+  /**
+   * Applies the selected filters and sorting to the list of products.
+   */
 
   function applyFiltersAndSort() {
     let filtered = products;
