@@ -21,6 +21,10 @@
   let searchQuery = get(searchQueryStore);
 
   onMount(async () => {
+
+    if (products.length === 0) {
+      console.log('Fetching products from API'); 
+
     try {
       const response = await fetch("https://fakestoreapi.com/products");
       const data = await response.json();
@@ -33,12 +37,19 @@
       const categoriesResponse = await fetch(
         "https://fakestoreapi.com/products/categories"
       );
-      categories = await categoriesResponse.json();
-      categoriesStore.set(categories);
+      const categoriesData = await categoriesResponse.json();
+       categories = categoriesData;
+        categoriesStore.set(categoriesData);
     } catch (error) {
       console.error(error);
     } finally {
       loading = false;
+      loadingStore.set(false);
+    }
+  } else {
+      console.log('Products already loaded');
+      filteredProducts = products;
+      filteredProductsStore.set(filteredProducts);
     }
   });
 
@@ -96,6 +107,7 @@
   $: categories = get(categoriesStore);
   $: selectedCategory = get(selectedCategoryStore);
   $: searchQuery = get(searchQueryStore);
+
 </script>
 
 <div class="controls">
