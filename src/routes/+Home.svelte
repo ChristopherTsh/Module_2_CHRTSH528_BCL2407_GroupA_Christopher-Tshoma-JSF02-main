@@ -30,7 +30,10 @@
       const response = await fetch("https://fakestoreapi.com/products");
       const data = await response.json();
       productsStore.set(data);
-      filteredProductsStore.set(await fetchCategories());
+      console.log(data); // console to check data 
+      productsStore.set(data);
+
+      await fetchCategories();
 
     } catch (error) {
       console.error(error);
@@ -54,7 +57,9 @@
       const categoriesResponse = await fetch(
         "https://fakestoreapi.com/products/categories"
       );
-      return await categoriesResponse.json();
+      const data = await categoriesResponse.json();
+    console.log("Fetched categories:", data); // Debug log
+    categoriesStore.set(data);
     } catch (error) {
       console.error(error);
       return [];
@@ -116,6 +121,10 @@
     filteredProductsStore.set(filtered);
   }
 
+  
+
+  
+
   // Update bindings
   $: products = $productsStore;
   $: filteredProducts = $filteredProductsStore;
@@ -163,12 +172,12 @@
 
 <div class="container">
   {#if loading}
-  <div class="loader">
-    <svg viewBox="0 0 50 50">
-      <circle class="ring" cx="25" cy="25" r="20"></circle>
-      <circle class="ball" cx="25" cy="5" r="3.5"></circle>
-    </svg>
-  </div>
+    <div class="loader">
+      <svg viewBox="0 0 50 50">
+        <circle class="ring" cx="25" cy="25" r="20"></circle>
+        <circle class="ball" cx="25" cy="5" r="3.5"></circle>
+      </svg>
+    </div>
   {:else}
     {#each filteredProducts as product (product.id)}
       <div class="product">
