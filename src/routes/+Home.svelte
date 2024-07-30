@@ -70,13 +70,13 @@
 </script>
 
 <div class="controls">
-  <select bind:value={sortOption} on:change={handleSort}>
+  <select bind:value={sortOption} on:change={handleSort} class="custom-dropdown sort-dropdown">
     <option value="">Sort by</option>
     <option value="lowToHigh">Price: Low to High</option>
     <option value="highToLow">Price: High to Low</option>
   </select>
 
-  <select bind:value={selectedCategory} on:change={handleCategoryFilter}>
+  <select bind:value={selectedCategory} on:change={handleCategoryFilter} class="custom-dropdown category-dropdown">
     <option value="">All Categories</option>
     {#each categories as category}
       <option value={category}>{category}</option>
