@@ -1,14 +1,16 @@
 <script>
   import { onMount } from "svelte";
   import {Link } from 'svelte-routing'
+  import { productsStore, filteredProductsStore, loadingStore, sortOptionStore, categoriesStore, selectedCategoryStore, searchQueryStore } from '../store';
+  import { get, set } from 'svelte/store';
   
-  let products = [];
-  let filteredProducts = [];
-  let loading = true;
-  let sortOption = '';
-  let categories = [];
-  let selectedCategory = '';
-  let searchQuery = '';
+  let products = get(productsStore);
+  let filteredProducts = get(filteredProductsStore);
+  let loading = get(loadingStore);
+  let sortOption = get(sortOptionStore);
+  let categories = get(categoriesStore);
+  let selectedCategory = get(selectedCategoryStore);
+  let searchQuery = get(searchQueryStore);
  
 
   onMount(async () => {
@@ -17,10 +19,13 @@
       const data = await response.json();
       console.log(data);
       products = data;
+      set(productsStore, data);
       filteredProducts = data;
+      set(filteredProductsStore, data);
 
       const categoriesResponse = await fetch("https://fakestoreapi.com/products/categories");
-      categories = await categoriesResponse.json(); 
+      categories = await categoriesResponse.json();
+      set(categoriesStore, categories); 
     } catch (error) {
       console.error(error);
     } finally {
@@ -32,17 +37,20 @@
 
 
   function handleSort() {
+    set(sortOptionStore, sortOption);
     if (sortOption === 'lowToHigh') {
       filteredProducts = filteredProducts.slice().sort((a, b) => a.price - b.price);
     } else if (sortOption === 'highToLow') {
       filteredProducts = filteredProducts.slice().sort((a, b) => b.price - a.price);
     }
+    set(filteredProductsStore, filteredProducts);
   }
 
   
   
 
   function handleCategoryFilter() {
+    set(selectedCategoryStore, selectedCategory);
     console.log('Category selected:', selectedCategory);
     if (selectedCategory) {
       filteredProducts = products.filter(product => product.category === selectedCategory);
@@ -50,9 +58,11 @@
       filteredProducts = products;
     }
     handleSort();
+    set(filteredProductsStore, filteredProducts);
   }
 
   function handleSearch() {
+    set(searchQueryStore, searchQuery);
     console.log('Search query:', searchQuery);
     if (searchQuery) {
       filteredProducts = products.filter(product => 
@@ -62,11 +72,19 @@
       filteredProducts = selectedCategory ? products.filter(product => product.category === selectedCategory) : products;
     }
     handleSort();
+    set(filteredProductsStore, filteredProducts);
   }
   
   // Removed auto search trigger when typing
-  $: handleSearch();
-
+  // $: handleSearch();
+// Update bindings
+  $: products = get(productsStore);
+  $: filteredProducts = get(filteredProductsStore);
+  $: loading = get(loadingStore);
+  $: sortOption = get(sortOptionStore);
+  $: categories = get(categoriesStore);
+  $: selectedCategory = get(selectedCategoryStore);
+  $: searchQuery = get(searchQueryStore);
 </script>
 
 <div class="controls">
