@@ -3,6 +3,7 @@
 	import Home from './+Home.svelte'
 	import ProductDetails from './+ProductDetails.svelte';
   import Navbar from './Navbar.svelte';
+  import Login from './Login.svelte';
 	
 </script>
 
@@ -15,6 +16,7 @@
   </div>
 	
 	<Route path="/product/:id" component={ProductDetails} />
+  <Route path="login" component={Login} />
   </Router>
 
 <style>
